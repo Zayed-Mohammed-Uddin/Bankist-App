@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bankist App</title>
+		<link rel="shortcut icon" href="./Image/bank.png" type="image/x-icon" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="./dist/output.css" />
+	</head>
+
+	<body class="dark:bg-slate-200">
+		<!-- Home Page -->
+		<section class="home_page flex items-start justify-center min-h-screen">
+			<div class="container px-7">
+				<div class="content_top flex items-center justify-between my-5">
+					<div class="left_header">
+						<h3 class="font-semibold">Log in to get started</h3>
+					</div>
+					<div class="middle_header">
+						<a
+							class="flex items-center justify-center gap-x-3"
+							href="#"
+							><img
+								class="w-14"
+								src="./Image/logo.png"
+								alt="Logo"
+							/>
+							<h1
+								class="text-2xl font-semibold text-green-600 tracking-wide"
+							>
+								BAN<span class="text-4xl text-black">K</span
+								><span class="text-red-600">IST</span>
+							</h1></a
+						>
+					</div>
+					<div class="right_header">
+						<form action="#" method="post">
+							<input
+								class="text-center shadow-lg rounded-full w-24 px-4 py-2 border-none outline-none"
+								type="text"
+								name="username"
+								id="username"
+								placeholder="USER"
+							/>
+							<input
+								class="text-center shadow-lg rounded-full w-24 px-4 py-2 border-none outline-none me-3"
+								type="password"
+								name="pwd"
+								id="pwd"
+								placeholder="PIN"
+							/>
+							<button type="submit">
+								<i class="fa-solid fa-arrow-right-long"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+				<main class="main_content max-w-[75%] mx-auto">
+					<div class="row_header flex justify-between">
+						<div class="left_content_header">
+							<h1 class="text-xl font-semibold tracking-wide">
+								Current Balance
+							</h1>
+							<h6 class="text-gray-500 tracking-wide">
+								As of 31/07/2020, 18:37
+							</h6>
+						</div>
+						<div class="right_content_header">
+							<h1 class="font-semibold">$25,952,59</h1>
+						</div>
+					</div>
+					<div class="row flex gap-x-5 items-center justify-center">
+						<div class="left_content_movements w-1/2 mx-auto">
+							<div
+								class="movement_stacks flex justify-between bg-white rounded-tl-lg rounded-tr-lg border-b-2 px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-green-600 text-sm">
+										7 Deposit(s)
+									</h6>
+									<h6>12/03/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$1300.00</h4>
+								</div>
+							</div>
+
+							<div
+								class="movement_stacks flex justify-between bg-white border-b-2 px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-green-600 text-sm">
+										8 Deposit(s)
+									</h6>
+									<h6>09/03/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$13.20</h4>
+								</div>
+							</div>
+
+							<div
+								class="movement_stacks flex justify-between bg-white border-b-2 px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-red-600 text-sm">
+										4 Withdrawal(s)
+									</h6>
+									<h6>12/05/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$900.00</h4>
+								</div>
+							</div>
+
+							<div
+								class="movement_stacks flex justify-between bg-white border-b-2 px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-red-600 text-sm">
+										2 Withdrawal(s)
+									</h6>
+									<h6>12/03/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$12000.00</h4>
+								</div>
+							</div>
+
+							<div
+								class="movement_stacks flex justify-between bg-white border-b-2 px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-green-600 text-sm">
+										5 Deposit(s)
+									</h6>
+									<h6>12/03/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$1300.00</h4>
+								</div>
+							</div>
+
+							<div
+								class="movement_stacks flex justify-between bg-white rounded-bl-lg rounded-br-lg px-4 py-6 border-gray-200 shadow-lg"
+							>
+								<div
+									class="stack_group_text_left items-center justify-center flex gap-x-5"
+								>
+									<h6 class="bg-green-600 text-sm">
+										8 Deposit(s)
+									</h6>
+									<h6>12/03/2020</h6>
+								</div>
+								<div class="stack_group_text_right">
+									<h4>$1300.00</h4>
+								</div>
+							</div>
+						</div>
+
+						<div class="right_content_movements w-1/2 mx-auto">
+							<div class="service_block p-5 rounded-lg">
+								<div class="service_block_header">
+									<h4 class="font-bold mb-5">
+										Transfer Money
+									</h4>
+								</div>
+								<div
+									class="input_box_wrapper flex items-center justify-center gap-4"
+								>
+									<div class="input_box_service_block">
+										<input
+											class="focus:shadow-xl text-center rounded-full w-28 px-4 py-2 border-none outline-none focus:bg-transparent duration-500 shadow-md mb-2"
+											type="text"
+											name="user"
+											id="user"
+											placeholder="USER"
+										/>
+										<h6 class="text-center">Transfer to</h6>
+									</div>
+									<div class="input_box_service_block">
+										<input
+											class="focus:shadow-xl text-center rounded-full w-28 px-4 py-2 border-none outline-none focus:bg-transparent duration-500 shadow-md mb-2"
+											type="number"
+											name="Amount"
+											id="Amount"
+											placeholder="Amount"
+										/>
+										<h6 class="text-center">Amount</h6>
+									</div>
+									<button
+										type="submit"
+										class="shadow-lg bg-white self-start px-5 py-2 rounded-lg hover:bg-green-600 hover:text-white duration-500"
+									>
+										<i
+											class="fa-solid fa-arrow-right-long"
+										></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="service_block p-5 rounded-lg">
+								<div class="service_block_header">
+									<h4 class="font-bold mb-5">Request Loan</h4>
+								</div>
+								<div
+									class="input_box_wrapper flex items-center justify-center gap-4"
+								>
+									<div class="input_box_service_block">
+										<input
+											class="focus:shadow-xl text-center rounded-full w-28 px-4 py-2 border-none outline-none focus:bg-transparent duration-500 shadow-md mb-2"
+											type="text"
+											name="amount"
+											id="amount"
+											placeholder="AMOUNT"
+										/>
+										<h6 class="text-center">Amount</h6>
+									</div>
+									<button
+										type="submit"
+										class="shadow-lg bg-white self-start px-5 py-2 rounded-lg hover:bg-[#39b385] hover:text-white duration-500"
+									>
+										<i
+											class="fa-solid fa-arrow-right-long"
+										></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="service_block p-5 rounded-lg">
+								<div class="service_block_header">
+									<h4 class="font-bold mb-5">
+										Close Account
+									</h4>
+								</div>
+								<div
+									class="input_box_wrapper flex items-center justify-center gap-4"
+								>
+									<div class="input_box_service_block">
+										<input
+											class="focus:shadow-xl text-center rounded-full w-28 px-4 py-2 border-none outline-none focus:bg-transparent duration-500 shadow-md mb-2"
+											type="text"
+											name="user"
+											id="user"
+											placeholder="USER"
+										/>
+										<h6 class="text-center">
+											Confirm user
+										</h6>
+									</div>
+									<div class="input_box_service_block">
+										<input
+											class="focus:shadow-xl text-center rounded-full w-28 px-4 py-2 border-none outline-none focus:bg-transparent duration-500 shadow-md mb-2"
+											type="password"
+											name="password"
+											id="password"
+											placeholder="PIN"
+										/>
+										<h6 class="text-center">Confirm PIN</h6>
+									</div>
+									<button
+										type="submit"
+										class="shadow-lg bg-white self-start px-5 py-2 rounded-lg hover:bg-[#e52a5a] hover:text-white duration-500"
+									>
+										<i
+											class="fa-solid fa-arrow-right-long"
+										></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row_footer flex items-center justify-between">
+						<div
+							class="footer_left_content flex gap-x-10 items-center"
+						>
+							<div
+								class="footer_left_in flex items-center gap-x-1"
+							>
+								<span class="inner_text font-semibold">IN</span>
+								<h6 class="text-green-800 text-3xl sm:text-md">
+									$27, 035, 20
+								</h6>
+							</div>
+							<div
+								class="footer_left_out flex items-center gap-x-1"
+							>
+								<span class="inner_text font-semibold"
+									>OUT</span
+								>
+								<h6 class="text-red-800 text-3xl sm:text-md">
+									$1082,61
+								</h6>
+							</div>
+							<div
+								class="footer_left_interest flex items-center gap-x-1"
+							>
+								<span class="inner_text font-semibold"
+									>INTEREST</span
+								>
+								<h6 class="text-green-800 text-3xl sm:text-md">
+									$323,46
+								</h6>
+							</div>
+							<div
+								class="footer_left_sort flex items-center cursor-pointer gap-x-1"
+							>
+								<i
+									class="fa-solid fa-arrow-down-long text-lime-600"
+								></i>
+								<h6 class="font-semibold">SORT</h6>
+							</div>
+						</div>
+						<div class="footer_right_content">
+							<h6 class="font-semibold">
+								You will be logged out in
+								<span class="session_timer">09:57</span>
+							</h6>
+						</div>
+					</div>
+				</main>
+			</div>
+		</section>
+		<script src="./app.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+	</body>
+</html>
