@@ -57,13 +57,19 @@
 		}
 		.footer_left_content,
 		.footer_right_content {
-			@apply text-center mb-3 !important;
+			@apply text-center !important;
 		}
 		.footer_left_content {
-			@apply items-center justify-center;
+			@apply items-center justify-center !important;
+		}
+		.footer_right_content {
+			@apply mb-2;
 		}
 		.row_footer {
-			@apply flex-col mb-4 !important;
+			@apply flex-col !important;
+		}
+		.footer_lower_content h6 {
+			@apply mb-4;
 		}
 	}
 	@media screen and (min-width: 280px) and (max-width: 640px) {
