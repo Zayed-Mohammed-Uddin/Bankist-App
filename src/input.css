@@ -40,6 +40,12 @@
 	.stack_group_text_left h6:nth-of-type(1) {
 		@apply text-white rounded-full px-3 py-1;
 	}
+	.movement_stacks:nth-child(1) {
+		@apply rounded-tl-lg rounded-tr-lg;
+	}
+	.movement_stacks:nth-last-child(1) {
+		@apply rounded-bl-lg rounded-br-lg;
+	}
 	@media screen and (min-width: 280px) and (max-width: 1300px) {
 		.main_content {
 			@apply max-w-full !important;
@@ -68,11 +74,8 @@
 		.row_footer {
 			@apply flex-col !important;
 		}
-		.footer_lower_content h6 {
-			@apply mb-4;
-		}
 	}
-	@media screen and (min-width: 280px) and (max-width: 640px) {
+	@media screen and (min-width: 280px) and (max-width: 639px) {
 		.content_top {
 			@apply flex-col gap-y-5 !important;
 		}
@@ -87,6 +90,20 @@
 		.footer_left_interest h6,
 		.footer_left_sort h6 {
 			@apply text-sm font-semibold;
+		}
+		.footer_right_content {
+			@apply my-3;
+		}
+		.footer_right_content h6,
+		.stack_group_text_left h6 {
+			@apply text-center !important;
+		}
+		.stack_group_text_left h6,
+		.stack_group_text_right h4 {
+			@apply text-xs;
+		}
+		.left_content_header h1, .balance__value {
+			@apply text-lg !important;
 		}
 	}
 }
