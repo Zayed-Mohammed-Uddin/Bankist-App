@@ -16,9 +16,7 @@
 		<!-- Home Page -->
 		<section class="home_page flex items-start justify-center min-h-screen">
 			<div class="container px-7 sm:px-5">
-				<div
-					class="content_top flex items-center justify-between mt-4 mb-5"
-				>
+				<div class="content_top flex items-center justify-between my-4">
 					<div class="left_header">
 						<h3 class="welcome font-semibold">
 							Log in to get started
@@ -65,9 +63,9 @@
 						</form>
 					</div>
 				</div>
-				<main class="main_content max-w-[75%] mx-auto app">
+				<main class="main_content max-w-[75%] mx-auto app hidden">
 					<div class="row_header flex justify-between">
-						<div class="left_content_header mb-4">
+						<div class="left_content_header">
 							<h1 class="text-xl font-semibold tracking-wide">
 								Current Balance
 							</h1>
@@ -94,6 +92,8 @@
 									</h4>
 								</div>
 								<form
+									action="#"
+									method="POST"
 									class="input_box_wrapper flex items-center justify-center gap-4"
 								>
 									<div class="input_box_service_block">
@@ -118,7 +118,7 @@
 									</div>
 									<button
 										type="submit"
-										class="shadow-lg bg-white self-start px-5 py-2 rounded-lg hover:bg-green-600 hover:text-white duration-500 form__btn--transfer"
+										class="shadow-lg bg-white self-start px-5 py-2 rounded-lg hover:bg-[#ffb003] hover:text-white duration-500 form__btn--transfer"
 									>
 										<i
 											class="fa-solid fa-arrow-right-long"
@@ -132,6 +132,8 @@
 									<h4 class="font-bold mb-5">Request Loan</h4>
 								</div>
 								<form
+									action="#"
+									method="POST"
 									class="input_box_wrapper flex items-center justify-center gap-4"
 								>
 									<div class="input_box_service_block">
@@ -140,6 +142,7 @@
 											type="text"
 											name="amount"
 											placeholder="AMOUNT"
+											required
 										/>
 										<h6 class="text-center">Amount</h6>
 									</div>
@@ -206,40 +209,35 @@
 							<div
 								class="footer_left_in flex items-center gap-x-1"
 							>
-								<span
-									class="inner_text font-semibold summary__value--in"
-									>IN</span
-								>
+								<span class="inner_text font-semibold">IN</span>
 								<h6
-									class="text-green-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"
+									class="text-green-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl summary__value--in"
 								>
-									$27, 035, 20
+									$0000
 								</h6>
 							</div>
 							<div
 								class="footer_left_out flex items-center gap-x-1"
 							>
-								<span
-									class="inner_text font-semibold summary__value--out"
+								<span class="inner_text font-semibold"
 									>OUT</span
 								>
 								<h6
-									class="text-red-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"
+									class="text-red-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl summary__value--out"
 								>
-									$1082,61
+									$0000.00
 								</h6>
 							</div>
 							<div
 								class="footer_left_interest flex items-center gap-x-1"
 							>
-								<span
-									class="inner_text font-semibold summary__value--interest"
+								<span class="inner_text font-semibold"
 									>INTEREST</span
 								>
 								<h6
-									class="text-green-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl"
+									class="text-green-800 text-3xl sm:text-lg md:text-xl lg:text-2xl xl:text-2xl summary__value--interest"
 								>
-									$323,46
+									$0000.00
 								</h6>
 							</div>
 							<div
@@ -271,7 +269,10 @@
 				</main>
 			</div>
 		</section>
-		<script src="./app.js"></script>
+		<script type="module" src="./timer.js"></script>
+		<script type="module" src="./components.js"></script>
+		<script type="module" src="./operations.js"></script>
+		<script type="module" src="./app.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
 	</body>
 </html>

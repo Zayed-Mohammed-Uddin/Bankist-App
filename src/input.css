@@ -23,7 +23,7 @@
 		letter-spacing: 1.5px;
 	}
 	.service_block {
-		@apply mb-5;
+		@apply mb-4;
 	}
 	.service_block:nth-of-type(1) {
 		background-image: linear-gradient(to top left, #ffb003, #ffcb03);
@@ -74,6 +74,9 @@
 		.row_footer {
 			@apply flex-col !important;
 		}
+		.footer_right_content h6 {
+			@apply text-center !important;
+		}
 	}
 	@media screen and (min-width: 280px) and (max-width: 639px) {
 		.content_top {
@@ -102,7 +105,8 @@
 		.stack_group_text_right h4 {
 			@apply text-xs;
 		}
-		.left_content_header h1, .balance__value {
+		.left_content_header h1,
+		.balance__value {
 			@apply text-lg !important;
 		}
 	}
