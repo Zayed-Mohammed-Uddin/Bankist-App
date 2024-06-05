@@ -11,6 +11,7 @@ import {
 	labelSumOut,
 	labelSumInterest,
 	labelBalance,
+	labelTimer,
 	btnTransfer,
 	btnClose,
 	inputTransferTo,
@@ -18,12 +19,14 @@ import {
 	inputLoanAmount,
 	inputCloseUsername,
 	inputClosePin,
+	btnSort,
 } from "./app.js";
 
 import { calculatingBalance } from "./operations.js";
 
 ("use strict");
-let currentAccount;
+let currentAccount,
+	sorted = false;
 
 // computing credentials
 const computingCredentials = function (accs) {
@@ -68,14 +71,18 @@ const computeInterest = function (account) {
 };
 
 // rendering movements
-const renderingMovements = (account) => {
+const renderingMovements = (account, sorted = false) => {
 	let html = ``;
 	let count_deposit = 0;
 	let count_withdrawal = 0;
 
-	account.movements.forEach((movement, i) => {
-		const movement_type = movement > 0 ? "deposit" : "withdrawal";
-		const color_type = movement > 0 ? "bg-green-600" : "bg-red-600";
+	const transaction = sorted
+		? account.movements.slice().sort((a, b) => a - b)
+		: account.movements;
+
+	transaction.forEach((mov, i) => {
+		const movement_type = mov > 0 ? "deposit" : "withdrawal";
+		const color_type = mov > 0 ? "bg-green-600" : "bg-red-600";
 
 		html = `
 				<div
@@ -87,11 +94,11 @@ const renderingMovements = (account) => {
 			movement_type.at(0).toUpperCase() + movement_type.slice(1)
 		}(s)
 						</h6>
-						<h6>${new Date().toUTCString()}</h6>
+						<h6>${new Date(account.movementsDates[i]).toDateString()}</h6>
 					</div>
 					<div class="stack_group_text_right">
-						<h4>
-							${movement_type === "deposit" ? "+" : "-"}$${Math.abs(movement).toFixed(2)}
+						<h4 class="stack_group_text_value">
+							${movement_type === "deposit" ? "+" : "-"}$${Math.abs(mov).toFixed(2)}
 						</h4>
 					</div>
 				</div>
@@ -150,7 +157,40 @@ btnLogin.addEventListener("click", (e) => {
 		setTimeout(() => {
 			containerApp.classList.remove("hidden");
 		}, 800);
+
+		// logout timer
+		labelTimer.innerText = "09:59";
+
+		let [min, second] = labelTimer.textContent
+			.split(":")
+			.map((time) => Number(time));
+
+		const intervalID = setInterval(() => {
+			if (second === 0) {
+				if (min === 0) {
+					labelTimer.textContent =
+						`${min}`.padStart(2, 0) +
+						`:` +
+						`${second}`.padStart(2, 0);
+					setTimeout(() => {
+						containerApp.classList.add("hidden");
+					}, 1000);
+					clearInterval(intervalID);
+					alert("You are logged out!");
+					return;
+				} else {
+					min--;
+					second = 59;
+				}
+			} else {
+				second--;
+			}
+			labelTimer.textContent =
+				`${min}`.padStart(2, 0) + `:` + `${second}`.padStart(2, 0);
+		}, 1000);
 	} else {
+		inputLoginUsername.value = "";
+		inputLoginPin.value = "";
 		alert("Invalid Credentials!");
 	}
 });
@@ -159,7 +199,7 @@ btnLogin.addEventListener("click", (e) => {
 btnLoan.addEventListener("click", (e) => {
 	e.preventDefault();
 	let isFailed = false;
-	const loanAmount = parseInt(inputLoanAmount.value);
+	const loanAmount = Math.floor(+inputLoanAmount.value);
 	loanAmount > 0 &&
 	currentAccount?.movements.some(
 		(transaction) => transaction > 0.1 * loanAmount
@@ -235,16 +275,25 @@ btnTransfer.addEventListener("click", (e) => {
 	}
 });
 
+// sorting the movements
+btnSort.addEventListener("click", () => {
+	containerMovements.innerHTML = "";
+	renderingMovements(currentAccount, !sorted);
+	sorted = !sorted;
+});
+
 // Practice
 
-accounts.forEach((acc) => {
-	console.log(acc.movements.map((mov) => mov * -1)); // converting withdrawal to deposit
-	console.log(acc.movements.filter((mov) => mov > 0)); // filtering the deposits only
-	console.log(acc.movements.reduce((accum, mov) => accum + mov, 0)); // getting the total balance
+labelBalance.addEventListener("click", () => {
+	const totalBalance = Array.from(
+		document.querySelectorAll(".stack_group_text_value"),
+		(el) => parseInt(el.innerText.replace("$", ""))
+	).reduce((total, balance) => total + balance, 0);
 
-	console.log(acc.movements.map((mov) => mov * -1).some((mov) => mov > 0)); // some - checking the condition of one instance and returning the boolean value
-
-	console.log(acc.movements.every((mov) => mov > 0)); // checking the condition of all instances and upon satisfying the condition, return the boolean value
-	
-	
+	console.log(totalBalance);
 });
+
+// PRACTICE
+// accounts.forEach((account, i) =>
+// 	console.log())
+// );

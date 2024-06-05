@@ -669,6 +669,28 @@ input::placeholder{
 		);
 }
 
+.btn--sort h6{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.btn--sort svg{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.btn--sort:hover svg{
+  --tw-text-opacity: 1 !important;
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
+.btn--sort:hover h6{
+  --tw-text-opacity: 1;
+  color: rgb(101 163 13 / var(--tw-text-opacity));
+}
+
 @media screen and (min-width: 280px) and (max-width: 1300px) {
   .main_content{
     max-width: 100% !important;
@@ -979,6 +1001,14 @@ input::placeholder{
 
 .font-semibold{
   font-weight: 600;
+}
+
+.lowercase{
+  text-transform: lowercase;
+}
+
+.capitalize{
+  text-transform: capitalize;
 }
 
 .tracking-wide{

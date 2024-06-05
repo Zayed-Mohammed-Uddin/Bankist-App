@@ -69,6 +69,18 @@
 			transparent
 		);
 	}
+	.btn--sort h6 {
+		@apply duration-300 transition-all;
+	}
+	.btn--sort svg {
+		@apply duration-300 transition-all;
+	}
+	.btn--sort:hover svg {
+		@apply text-black !important;
+	}
+	.btn--sort:hover h6 {
+		@apply text-lime-600;
+	}
 	@media screen and (min-width: 280px) and (max-width: 1300px) {
 		.main_content {
 			@apply max-w-full !important;
