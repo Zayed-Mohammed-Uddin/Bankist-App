@@ -20,6 +20,7 @@ import {
 	inputCloseUsername,
 	inputClosePin,
 	btnSort,
+	labelDate,
 } from "./app.js";
 
 import { calculatingBalance } from "./operations.js";
@@ -27,6 +28,8 @@ import { calculatingBalance } from "./operations.js";
 ("use strict");
 let currentAccount,
 	sorted = false;
+
+let intervalID = null;
 
 // computing credentials
 const computingCredentials = function (accs) {
@@ -45,29 +48,63 @@ computingCredentials(accounts);
 // computing total deposits
 const computeDeposit = function (account) {
 	// computing total deposit
-	labelSumIn.textContent = `+$${account.movements
-		.filter((mov) => mov > 0)
-		.reduce((total, mov) => total + mov, 0)
-		.toFixed(2)}`;
-};
-
-// computing total withdrawals
-const computeWithdrawal = function (account) {
-	labelSumOut.textContent = `-$${Math.abs(
+	labelSumIn.textContent = `+${new Intl.NumberFormat(account.locale, {
+		style: "currency",
+		currency: account.currency,
+	}).format(
 		account.movements
-			.filter((mov) => mov < 0)
+			.filter((mov) => mov > 0)
 			.reduce((total, mov) => total + mov, 0)
 			.toFixed(2)
 	)}`;
 };
 
+// computing total withdrawals
+const computeWithdrawal = function (account) {
+	labelSumOut.textContent = `-${new Intl.NumberFormat(account.locale, {
+		style: "currency",
+		currency: account.currency,
+	}).format(
+		Math.abs(
+			account.movements
+				.filter((mov) => mov < 0)
+				.reduce((total, mov) => total + mov, 0)
+				.toFixed(2)
+		)
+	)}`;
+};
+
 // computing total interest
 const computeInterest = function (account) {
-	labelSumInterest.textContent = `+$${account.movements
-		.filter((mov) => mov > 0)
-		.map((mov) => mov * (account.interestRate / 100))
-		.reduce((total, mov) => total + mov, 0)
-		.toFixed(2)}`;
+	labelSumInterest.textContent = `+${new Intl.NumberFormat(account.locale, {
+		style: "currency",
+		currency: account.currency,
+	}).format(
+		account.movements
+			.filter((mov) => mov > 0)
+			.map((mov) => mov * (account.interestRate / 100))
+			.reduce((total, mov) => total + mov, 0)
+			.toFixed(2)
+	)}`;
+};
+
+// Formatting Dates
+const formatMovementDate = (date, locale) => {
+	const daysPassed = (currDate, prevDate) => {
+		return Math.abs(currDate - prevDate) / (1000 * 60 * 60 * 24);
+	};
+
+	if (Math.round(daysPassed(new Date(), date)) === 0) return `Today`;
+	else if (Math.round(daysPassed(new Date(), date)) === 1) return "Yesterday";
+	else if (Math.round(daysPassed(new Date(), date)) <= 7)
+		return `${Math.round(daysPassed(new Date(), date))} days ago`;
+	else {
+		return `${new Intl.DateTimeFormat(locale, {
+			day: "numeric",
+			month: "numeric",
+			year: "numeric",
+		}).format(date)}`;
+	}
 };
 
 // rendering movements
@@ -84,6 +121,12 @@ const renderingMovements = (account, sorted = false) => {
 		const movement_type = mov > 0 ? "deposit" : "withdrawal";
 		const color_type = mov > 0 ? "bg-green-600" : "bg-red-600";
 
+		let date = new Date(account.movementsDates[i]);
+		if (date == "Invalid Date") {
+			date = new Date();
+		}
+		const displayDate = formatMovementDate(date, account.locale);
+
 		html = `
 				<div
 					class="movement_stacks flex justify-between bg-white border-b-2 px-4 py-6 border-gray-200 shadow-lg">
@@ -94,11 +137,17 @@ const renderingMovements = (account, sorted = false) => {
 			movement_type.at(0).toUpperCase() + movement_type.slice(1)
 		}(s)
 						</h6>
-						<h6>${new Date(account.movementsDates[i]).toDateString()}</h6>
+						<h6>${displayDate}</h6>
 					</div>
 					<div class="stack_group_text_right">
 						<h4 class="stack_group_text_value">
-							${movement_type === "deposit" ? "+" : "-"}$${Math.abs(mov).toFixed(2)}
+							${movement_type === "deposit" ? "+" : "-"}${new Intl.NumberFormat(
+			account.locale,
+			{
+				style: "currency",
+				currency: account.currency,
+			}
+		).format(Math.abs(mov).toFixed(2))}
 						</h4>
 					</div>
 				</div>
@@ -119,13 +168,48 @@ const renderUI = function (account) {
 
 	// computing the total balance and displaying the balance
 	account.totalBalance = calculatingBalance(account.movements);
-	labelBalance.innerText = `$${account.totalBalance}`;
+	labelBalance.innerText = `${new Intl.NumberFormat(account.locale, {
+		style: "currency",
+		currency: account.currency,
+	}).format(account.totalBalance)}`;
 
 	renderingMovements(account);
 
 	computeDeposit(account);
 	computeWithdrawal(account);
 	computeInterest(account);
+};
+
+const timer = () => {
+	// logout timer
+	labelTimer.textContent = "10:00";
+
+	let [min, second] = labelTimer.textContent
+		.split(":")
+		.map((time) => Number(time));
+
+	intervalID = setInterval(() => {
+		if (second === 0) {
+			if (min === 0) {
+				labelTimer.textContent =
+					`${min}`.padStart(2, 0) + `:` + `${second}`.padStart(2, 0);
+				setTimeout(() => {
+					containerApp.classList.add("hidden");
+				}, 1000);
+				clearInterval(intervalID);
+				alert("You are logged out!");
+			} else {
+				min--;
+				second = 59;
+			}
+		} else {
+			second--;
+		}
+		labelTimer.textContent =
+			`${min}`.padStart(2, 0) + `:` + `${second}`.padStart(2, 0);
+	}, 1000);
+
+	return intervalID;
 };
 
 btnLogin.addEventListener("click", (e) => {
@@ -142,13 +226,29 @@ btnLogin.addEventListener("click", (e) => {
 	if (currentAccount) {
 		alert("Successfully logged in!");
 
-		inputLoginUsername.value = "";
-		inputLoginPin.value = "";
+		inputLoginUsername.value = inputLoginPin.value = "";
 
 		// printing the welcome label associated with the account
 		labelWelcome.textContent = `Welcome ${
 			currentAccount.owner.split(" ")[0]
 		}`;
+
+		// setting up the label date
+		const options = {
+			hour: "numeric",
+			minute: "numeric",
+			day: "numeric",
+			month: "long",
+			year: "numeric",
+		};
+		// Internationalization API
+
+		// const locale = navigator.language;
+		const time = new Intl.DateTimeFormat(
+			currentAccount.locale,
+			options
+		).format(new Date());
+		labelDate.innerText = `${time}`;
 
 		// rendering the movements
 		renderUI(currentAccount);
@@ -158,39 +258,14 @@ btnLogin.addEventListener("click", (e) => {
 			containerApp.classList.remove("hidden");
 		}, 800);
 
-		// logout timer
-		labelTimer.innerText = "09:59";
-
-		let [min, second] = labelTimer.textContent
-			.split(":")
-			.map((time) => Number(time));
-
-		const intervalID = setInterval(() => {
-			if (second === 0) {
-				if (min === 0) {
-					labelTimer.textContent =
-						`${min}`.padStart(2, 0) +
-						`:` +
-						`${second}`.padStart(2, 0);
-					setTimeout(() => {
-						containerApp.classList.add("hidden");
-					}, 1000);
-					clearInterval(intervalID);
-					alert("You are logged out!");
-					return;
-				} else {
-					min--;
-					second = 59;
-				}
-			} else {
-				second--;
-			}
-			labelTimer.textContent =
-				`${min}`.padStart(2, 0) + `:` + `${second}`.padStart(2, 0);
-		}, 1000);
+		if (intervalID) {
+			clearInterval(intervalID);
+			timer();
+		} else {
+			timer();
+		}
 	} else {
-		inputLoginUsername.value = "";
-		inputLoginPin.value = "";
+		inputLoginUsername.value = inputLoginPin.value = "";
 		alert("Invalid Credentials!");
 	}
 });
@@ -211,9 +286,14 @@ btnLoan.addEventListener("click", (e) => {
 		alert("Insufficient funds!");
 		inputLoanAmount.value = "";
 	} else {
-		renderUI(currentAccount);
+		setTimeout(() => {
+			renderUI(currentAccount);
+		}, 3000);
 		inputLoanAmount.value = "";
 	}
+
+	clearInterval(intervalID);
+	timer();
 });
 
 // closing account
@@ -234,8 +314,7 @@ btnClose.addEventListener("click", (e) => {
 		containerApp.classList.add("hidden");
 		alert("Account successfully closed!");
 
-		inputCloseUsername.value = "";
-		inputClosePin.value = "";
+		inputCloseUsername.value = inputClosePin.value = "";
 	} else {
 		alert("Invalid Credentials!");
 	}
@@ -259,8 +338,8 @@ btnTransfer.addEventListener("click", (e) => {
 		currentAccount.movements.push(-transferAmount);
 		targetUser.movements.push(transferAmount);
 		alert(
-			"$" +
-				transferAmount +
+			transferAmount +
+				` ${currentAccount.currency}` +
 				" is successfully transferred to " +
 				targetUser.owner
 		);
@@ -268,8 +347,10 @@ btnTransfer.addEventListener("click", (e) => {
 		// computing the total balance and displaying the balance
 		renderUI(currentAccount);
 
-		inputTransferTo.value = "";
-		inputTransferAmount.value = "";
+		inputTransferTo.value = inputTransferAmount.value = "";
+
+		clearInterval(intervalID);
+		timer();
 	} else {
 		alert("Invalid Transfer!");
 	}
@@ -282,18 +363,6 @@ btnSort.addEventListener("click", () => {
 	sorted = !sorted;
 });
 
-// Practice
-
-labelBalance.addEventListener("click", () => {
-	const totalBalance = Array.from(
-		document.querySelectorAll(".stack_group_text_value"),
-		(el) => parseInt(el.innerText.replace("$", ""))
-	).reduce((total, balance) => total + balance, 0);
-
-	console.log(totalBalance);
-});
-
 // PRACTICE
-// accounts.forEach((account, i) =>
-// 	console.log())
-// );
+
+// console.log(time);
