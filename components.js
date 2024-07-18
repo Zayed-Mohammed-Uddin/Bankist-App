@@ -313,7 +313,7 @@ btnClose.addEventListener("click", (e) => {
 		accounts.splice(index, 1);
 		containerApp.classList.add("hidden");
 		alert("Account successfully closed!");
-
+		labelWelcome.textContent = `Log in to get started`;
 		inputCloseUsername.value = inputClosePin.value = "";
 	} else {
 		alert("Invalid Credentials!");
