@@ -121,7 +121,7 @@ const renderingMovements = (account, sorted = false) => {
 		const movement_type = mov > 0 ? "deposit" : "withdrawal";
 		const color_type = mov > 0 ? "bg-green-600" : "bg-red-600";
 
-		let date = new Date(account.movementsDates[i]);
+		const date = new Date(account.movementsDates[i]);
 		if (date == "Invalid Date") {
 			date = new Date();
 		}
